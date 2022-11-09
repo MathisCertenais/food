@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MessyCookingApp</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="back_button">Back</string>
+    <string name="ingredient">Search by ingredients</string>
+    <string name="recipes">Recipes</string>
+    <string name="shopping_list">Shopping List</string>
+    <string name="profile">Profile</string>
+
+
+</resources>
