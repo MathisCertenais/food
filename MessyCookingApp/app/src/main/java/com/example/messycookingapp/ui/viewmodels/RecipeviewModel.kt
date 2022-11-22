@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.messycookingapp.LanOrganizerApplication
+import com.example.messycookingapp.data.states.models.RecipeModel
 import com.example.messycookingapp.data.states.repository.RecipeRepository
 import com.example.messycookingapp.data.states.states.RecipeUIState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +23,7 @@ class RecipeviewModel(private val recipeRepository: RecipeRepository) : ViewMode
 
     val uiState : StateFlow<List<RecipeUIState>> = _uiState.asStateFlow()
 
-    private fun getRecipe(){
+    fun getRecipe(){
         viewModelScope.launch {
             try{
                 val listRecipe = recipeRepository.getRecipe()
@@ -34,6 +35,10 @@ class RecipeviewModel(private val recipeRepository: RecipeRepository) : ViewMode
             }
         }
 
+    }
+
+    fun getterGetRecipe() {
+        return getRecipe()
     }
 
     companion object{

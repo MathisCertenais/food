@@ -1,38 +1,81 @@
 package com.example.messycookingapp.ui.screens
 
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import android.util.Log
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavController
-import com.example.messycookingapp.LogoImage
 import com.example.messycookingapp.data.states.models.RecipeModel
 import com.example.messycookingapp.data.states.sources.RecipeSource
-import com.example.messycookingapp.ui.theme.MessyCookingAppTheme
+import com.example.messycookingapp.data.states.states.RecipeUIState
+import com.example.messycookingapp.ui.viewmodels.RecipeviewModel
 
-suspend fun recipe(): List<RecipeModel>{
-    return RecipeSource.getRecipe()
-}
 
 @Composable
 fun ShoppingList(navController: NavController, modifier : Modifier = Modifier){
+    val viewModel: RecipeviewModel= viewModel(factory = RecipeviewModel.Factory)
+    val recipeList = viewModel.uiState.collectAsState()
 
-    // Insert recipe title's
+    // It works but do not return the value because the recipeList is empty
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier) {
-        Text(text = "oui")
+        modifier = modifier.fillMaxWidth().fillMaxHeight(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = recipeList.value.size.toString())
         Spacer(modifier = Modifier.height(32.dp))
         Text(text = "oui")
     }
+
+    // Method from internet
+    /**
+    Scaffold(
+        content = {
+            RecipeList(recipeList = recipeList.value, modifier.padding(it))
+        }
+    )
+*/
 }
+
+@Composable
+private fun RecipeList(recipeList: List<RecipeUIState>, modifier: Modifier = Modifier) {
+
+    Text(text = recipeList.size.toString())
+    LazyColumn() {
+        items(count = recipeList.size,
+            contentType = {
+                it
+                Log.i("ITvalue", it.toString())
+
+            }){
+            GameCard(recipe = recipeList[it])
+
+        }
+    }
+}
+
+@Composable
+private fun GameCard(recipe: RecipeUIState, modifier: Modifier = Modifier) {
+
+    Card(modifier = modifier.padding(8.dp)) {
+        Row() {
+            Text(text = recipe.name,
+                modifier = Modifier.padding(16.dp),
+                style = MaterialTheme.typography.body1)
+        }
+    }
+
+
+}
+
 
 

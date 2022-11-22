@@ -9,6 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.example.messycookingapp.ui.screens.AppScreen
 import com.example.messycookingapp.ui.themes.MessyCookingAppTheme
+import retrofit2.Retrofit
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
