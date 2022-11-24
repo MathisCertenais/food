@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.messycookingapp.R
+import com.example.messycookingapp.ui.viewmodels.RecipeviewModel
 
 
 sealed class MainScreens(val route: String, @StringRes val title: Int, val icon : ImageVector){
@@ -127,7 +128,7 @@ fun AppScreen(modifier: Modifier=Modifier){
         {
             composable(MainScreens.Ingredient.route){Ingredients(navController,Modifier)}
             composable(MainScreens.Recipes.route){Recipes(navController,Modifier)}
-            composable(MainScreens.ShoppingList.route){ShoppingList(navController,Modifier)}
+            composable(MainScreens.ShoppingList.route){ShoppingList(navController)}
             composable(MainScreens.Profile.route){Profile(navController,Modifier)}
         }
 

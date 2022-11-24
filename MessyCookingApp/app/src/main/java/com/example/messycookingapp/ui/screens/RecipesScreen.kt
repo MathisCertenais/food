@@ -29,8 +29,8 @@ import java.time.format.TextStyle
 
 @Composable
 fun Recipes(navController: NavController, modifier : Modifier=Modifier){
-    val viewModel : RecipeviewModel = viewModel(factory = RecipeviewModel.Factory)
-    val recipeList = viewModel.uiState.collectAsState()
+    //val viewModel : RecipeviewModel = viewModel(factory = RecipeviewModel.Factory)
+    //val recipeList = viewModel.uiState.collectAsState()
     val context = LocalContext.current
     Column (modifier = modifier
         .fillMaxWidth()
