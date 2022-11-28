@@ -1,6 +1,7 @@
 package com.example.messycookingapp
 
 import android.app.Application
+import android.content.Context
 import com.example.messycookingapp.data.states.AppContainer
 import com.example.messycookingapp.data.states.DefaultAppContainer
 import dagger.hilt.android.HiltAndroidApp
@@ -8,11 +9,21 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class LanOrganizerApplication : Application() {
 
-    lateinit var container: AppContainer
+    companion object {
+        private var sApplication: Application? = null
+
+        fun getApplication(): Application? {
+            return sApplication
+        }
+
+        fun getContext(): Context? {
+            return getApplication()!!.applicationContext
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
-        container = DefaultAppContainer()
+        sApplication = this
     }
 }
 

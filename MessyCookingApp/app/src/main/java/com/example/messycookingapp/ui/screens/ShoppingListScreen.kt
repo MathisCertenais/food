@@ -42,11 +42,11 @@ fun ShoppingList(navController: NavController, viewModel: RecipeviewModel = hilt
     // Method from internet
     /**
     Scaffold(
-        content = {
-            RecipeList(recipeList = recipeList.value, modifier.padding(it))
-        }
+    content = {
+    RecipeList(recipeList = recipeList.value, modifier.padding(it))
+    }
     )
-*/
+     */
 }
 
 @Composable
@@ -79,6 +79,3 @@ private fun GameCard(recipe: RecipeUIState, modifier: Modifier = Modifier) {
 
 
 }
-
-
-
