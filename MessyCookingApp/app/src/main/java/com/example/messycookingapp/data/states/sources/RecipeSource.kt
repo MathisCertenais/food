@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
@@ -16,7 +17,7 @@ import retrofit2.http.GET
 import javax.inject.Singleton
 
 
-object RecipeSource: RecipeSource {
+object RecipeSource {
 
     private const val BASE_URL = "https://api.spoonacular.com"
 
@@ -151,7 +152,7 @@ object RecipeSource: RecipeSource {
         retrofit.create(SteamAppsService::class.java)
     }
 
-    override suspend fun getRecipe(): List<RecipeModel> {
+    suspend fun getRecipe(): List<RecipeModel> {
         return retrofitSteamAppsServiceService.findByIngredients()
             .appList
             .map {
@@ -165,8 +166,25 @@ object RecipeSource: RecipeSource {
             it.unusedIngredients,
             it.usedIngredientCount,
             it.usedIngredients)
+
         }
 
+    }
+
+    private fun RecipeModel(
+        name: String,
+        appImage: String,
+        id: String,
+        image: String,
+        imageType: String,
+        likes: String,
+        missedIngredientCount: String,
+        missedIngredients: String,
+        title: String,
+        unusedIngredients: String
+    ): RecipeModel {
+
+        return RecipeModel("Soup", "image", "12554", "image", "id", "5","0","null","soup","tomato")
     }
 }
 
@@ -175,7 +193,7 @@ object RecipeSource: RecipeSource {
 object RecipeSourceModule {
     @Provides
     @Singleton
-    fun provideGameSource(): RecipeSource {
+    fun provideGameSource(): com.example.messycookingapp.data.states.sources.RecipeSource {
         return RecipeSource
     }
 }

@@ -14,7 +14,7 @@ interface AppContainer {
     val recipeRepository : RecipeRepository
 }
 
-class DefaultAppContainer : AppContainer {
+abstract class DefaultAppContainer : AppContainer {
     private companion object {
         private const val BASE_URL = "https://api.spoonacular.com"
 
@@ -30,10 +30,11 @@ class DefaultAppContainer : AppContainer {
     override val recipeSource: RecipeSource
         get() = TODO("Not yet implemented")
 
-
+/**
     override val recipeRepository: RecipeRepository by lazy {
         DefaultRecipeRepository()
     }
+    */
 
 }
 

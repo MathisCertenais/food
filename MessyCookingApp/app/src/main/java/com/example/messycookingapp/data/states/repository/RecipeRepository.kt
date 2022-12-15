@@ -9,6 +9,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.Flow
 import java.security.AccessController.getContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,7 +24,6 @@ interface RecipeRepository {
     suspend fun getRecipe(): List<RecipeModel>
 }
 
-
 /**class DefaultRecipeRepository() : RecipeRepository{
     @Inject
     lateinit var RecipeSource: RecipeSource
@@ -32,9 +32,9 @@ interface RecipeRepository {
         return RecipeSource.getRecipe()
     }*/
 
-class DefaultRecipeRepository @Inject constructor(): RecipeRepository {
+class DefaultRecipeRepository {
 
-    private lateinit var recipeSource: RecipeSource
+    private var recipeSource: RecipeSource
 
     init {
         val appContext = LanOrganizerApplication.getContext()
@@ -47,11 +47,10 @@ class DefaultRecipeRepository @Inject constructor(): RecipeRepository {
     }
 
 
-    override suspend fun getRecipe(): List<RecipeModel> {
+    suspend fun getRecipe(): List<RecipeModel> {
         return recipeSource.getRecipe()
     }
 }
-
 
 @EntryPoint
 @InstallIn(SingletonComponent::class)
@@ -59,17 +58,13 @@ interface DefaultGameRepoEntryPoint {
     var recipeSource: RecipeSource
 }
 
-
-
-
-
-
+/**
 @InstallIn(SingletonComponent::class)
 @Module
-object RecipeRepositoryModule {
+object GameSourceModule {
     @Provides
-    fun provideRecipeRepo(): RecipeRepository{
-        return DefaultRecipeRepository()
+    @Singleton
+    fun provideGameSource(): RecipeSource {
+        return RecipeCachedSource
     }
-}
-
+}*/
